@@ -1,34 +1,24 @@
-import { useParams } from "react-router-dom";
-import Products from "../Products/Products";
+import { useNavigate } from "react-router-dom";
 import "./Category.scss";
-import axios from "axios";
-import { useEffect, useState } from "react";
-const Category = () => {
-    const { id } = useParams();
-    const [product, setProduct] = useState()
 
-    useEffect(() => {
-        (async () => {
-            await axios.get(`/api/v1/product/getproductByCategory/${id}`)
-                .then(res => {
-                    setProduct(res.data)
-                })
-                .catch(err => console.log(err))
-        })()
-    }, [])
-
-    console.log(product)
-
+const Category = ({ categories }) => {
+    const navigate = useNavigate();
     return (
-        <div className="category-main-content">
-            <div className="layout">
-                <div className="category-title">
-                    {
-                        product?.data[0].categoryId.categoryName
-                    }
-                </div>
-                <Products
-                    innerPage={true} products={product} />
+        <div className="shop-by-category">
+            <div className="categories">
+                {categories?.data?.map((item) => (
+                    <div
+                        key={item.id}
+                        className="category"
+                        onClick={() => navigate(`/category/${item._id}`)}
+                    >
+                        <img
+                            src={
+                                item.catImg
+                            }
+                        />
+                    </div>
+                ))}
             </div>
         </div>
     );
