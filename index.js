@@ -1,16 +1,9 @@
-const mongoose = require("mongoose")
-const DATABASE_NAME = require("../constant")
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.scss";
+import App from "./App";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/js/bootstrap.js";
 
-const connectDB = async () => {
-    try {
-        const connectionInstance = await mongoose.connect(`${process.env.MONGO_URL}/${DATABASE_NAME}`)
-        console.log(`\nMongoDB connected !! DB HOST : ${connectionInstance.connection.host}`)
-    } catch (error) {
-        console.log("name" , DATABASE_NAME)
-        console.log("url" , process.env.MONGO_URL);
-        console.log("MONGODB not connected error", error)
-        process.exit(1)
-    }
-}
-
-module.exports = connectDB
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
